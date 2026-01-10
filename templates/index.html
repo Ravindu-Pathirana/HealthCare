@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Health Risk Prediction</title>
+    <link rel="stylesheet" href="/static/style.css">
+
+    <script>
+        function validateForm() {
+            const bmi = document.getElementById("BMI").value;
+            const age = document.getElementById("Age").value;
+
+            if (bmi < 10 || bmi > 60) {
+                alert("BMI must be between 10 and 60");
+                return false;
+            }
+            if (age < 18 || age > 100) {
+                alert("Age must be between 18 and 100");
+                return false;
+            }
+            return true;
+        }
+    </script>
+</head>
+
+<body>
+<div class="container">
+    <h1>Heart Disease & Diabetes Risk Predictor</h1>
+
+    <form method="POST" action="/predict" onsubmit="return validateForm()">
+
+        {% for field in [
+            'HighBP','HighChol','CholCheck','Smoker','Stroke','PhysActivity',
+            'Fruits','Veggies','HvyAlcoholConsump','AnyHealthcare',
+            'NoDocbcCost','DiffWalk','Vaccinated','Had_COVID'
+        ] %}
+        <div class="form-group">
+            <label>{{ field.replace('_',' ') }}</label>
+            <select name="{{ field }}" required>
+                <option value="0">No</option>
+                <option value="1">Yes</option>
+            </select>
+        </div>
+        {% endfor %}
+
+        <div class="form-group">
+            <label>BMI</label>
+            <input type="number" step="0.1" id="BMI" name="BMI" required>
+        </div>
+
+        <div class="form-group">
+            <label>General Health (1 = Excellent → 5 = Poor)</label>
+            <input type="number" min="1" max="5" name="GenHlth" required>
+        </div>
+
+        <div class="form-group">
+            <label>Mental Health Days (0–30)</label>
+            <input type="number" min="0" max="30" name="MentHlth" required>
+        </div>
+
+        <div class="form-group">
+            <label>Physical Health Days (0–30)</label>
+            <input type="number" min="0" max="30" name="PhysHlth" required>
+        </div>
+
+        <div class="form-group">
+            <label>Sex</label>
+            <select name="Sex" required>
+                <option value="0">Female</option>
+                <option value="1">Male</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Age</label>
+            <input type="number" id="Age" name="Age" required>
+        </div>
+
+        <div class="form-group">
+            <label>Education Level (1–6)</label>
+            <input type="number" min="1" max="6" name="Education" required>
+        </div>
+
+        <div class="form-group">
+            <label>Income Level (1–8)</label>
+            <input type="number" min="1" max="8" name="Income" required>
+        </div>
+
+        <button type="submit">Predict Risk</button>
+    </form>
+
+    {% if heart_result %}
+    <div class="result">
+        <h2>Prediction Results</h2>
+        <p><strong>Heart Disease:</strong> {{ heart_result }} ({{ heart_prob }}%)</p>
+        <p><strong>Diabetes:</strong> {{ diabetes_result }} ({{ diabetes_prob }}%)</p>
+    </div>
+    {% endif %}
+
+    {% if error %}
+    <div class="error">{{ error }}</div>
+    {% endif %}
+</div>
+</body>
+</html>
