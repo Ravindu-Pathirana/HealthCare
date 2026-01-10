@@ -30,9 +30,9 @@
     <form method="POST" action="/predict" onsubmit="return validateForm()">
 
         {% for field in [
-            'HighBP','HighChol','CholCheck','Smoker','Stroke','PhysActivity',
-            'Fruits','Veggies','HvyAlcoholConsump','AnyHealthcare',
-            'NoDocbcCost','DiffWalk','Vaccinated','Had_COVID'
+            'High Blood Pressure','High Cholesterol','Cholesterol Check','Smoker','Stroke','Physical Activity',
+            'Eats Fruits','Vegetarian','Heavy Alcohol Consumption','Any Healthcare',
+            'No Doctor Because of Cost','Difficulty Walking','Vaccinated','Had COVID'
         ] %}
         <div class="form-group">
             <label>{{ field.replace('_',' ') }}</label>
@@ -102,4 +102,4 @@
     {% endif %}
 </div>
 </body>
-</html>
+</html> 
