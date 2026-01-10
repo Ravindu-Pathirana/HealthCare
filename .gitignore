@@ -1,0 +1,17 @@
+# Ignore everything by default
+*
+
+# Allow directories so exclusions can match files
+!*/
+
+# Keep this file
+!.gitignore
+
+# Allow only Jupyter notebooks
+!*.ipynb
+
+# Exclude Jupyter notebook checkpoints and config dirs
+.ipynb_checkpoints/
+.ipynb_checkpoints/**
+.jupyter/
+.jupyter/**
