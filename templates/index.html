@@ -35,7 +35,9 @@
         ['HvyAlcoholConsump', 'Heavy Alcohol Consumption'], ['AnyHealthcare',
         'Any Healthcare'], ['NoDocbcCost', 'No Doctor Because of Cost'],
         ['DiffWalk', 'Difficulty Walking'], ['Vaccinated', 'Vaccinated'],
-        ['Had_COVID', 'Had COVID'] ] %} {% for name, label in binary_fields %}
+        ['Had_COVID', 'Had COVID'] ] %} 
+        
+        {% for name, label in binary_fields %}
         <div class="form-group">
           <label>{{ label }}</label>
           <select name="{{ name }}" required>
